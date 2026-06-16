@@ -62,6 +62,16 @@ target_link_options(${MOD_LIBRARY_NAME}
 find_library(log-lib log REQUIRED)
 target_link_libraries(${MOD_LIBRARY_NAME} PRIVATE ${log-lib})
 
+if(NOT CMAKE_STRIP)
+    message(FATAL_ERROR "CMAKE_STRIP is required to strip the generated library.")
+endif()
+
+add_custom_command(TARGET ${MOD_LIBRARY_NAME} POST_BUILD
+    COMMAND "${CMAKE_STRIP}" --strip-unneeded "$<TARGET_FILE:${MOD_LIBRARY_NAME}>"
+    COMMENT "Stripping symbols from $<TARGET_FILE_NAME:${MOD_LIBRARY_NAME}>"
+    VERBATIM
+)
+
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/manifest.json.in"
     "${CMAKE_CURRENT_BINARY_DIR}/manifest.json"
