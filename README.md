@@ -27,21 +27,26 @@ typed config generation, and GitHub Actions workflow.
 - CMake 3.22+
 - Ninja
 - PowerShell 7+, or Windows PowerShell
+- preloader-android headers from
+  <https://github.com/LiteLDev/preloader-android>
 
-The default `LEVI_PRELOADER_ROOT` is:
+By default, the template looks for preloader-android at:
 
 ```text
-D:/a/liteldev/LeviLaunchroid/app/src/main/cpp/preloader
+third_party/preloader-android
 ```
 
-If your preloader is in another location, set the environment variable or pass
-the CMake option directly.
+Clone it there, or set `LEVI_PRELOADER_ROOT` / `-DLEVI_PRELOADER_ROOT` to an
+existing checkout:
+
+```powershell
+git clone https://github.com/LiteLDev/preloader-android third_party/preloader-android
+```
 
 ## Build
 
 ```powershell
 $env:ANDROID_HOME = "C:/Users/<you>/AppData/Local/Android/Sdk"
-$env:LEVI_PRELOADER_ROOT = "D:/a/liteldev/LeviLaunchroid/app/src/main/cpp/preloader"
 
 ./scripts/package.ps1 -Abi arm64-v8a
 ```
@@ -65,7 +70,7 @@ cmake -S . -B build-arm64-v8a `
   -DANDROID_ABI=arm64-v8a `
   -DANDROID_PLATFORM=android-28 `
   -DANDROID_STL=c++_shared `
-  -DLEVI_PRELOADER_ROOT="$env:LEVI_PRELOADER_ROOT" `
+  -DLEVI_PRELOADER_ROOT="third_party/preloader-android" `
   -DMOD_ID=my-mod `
   -DMOD_NAME="My Mod" `
   -DMOD_AUTHOR="LiteLDev" `

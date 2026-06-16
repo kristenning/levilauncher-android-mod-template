@@ -15,14 +15,17 @@ set(MOD_LIBRARY_NAME "my_mod" CACHE STRING "Native library name without lib pref
 set(MOD_MINECRAFT_VERSIONS "[\"1.21.*\"]" CACHE STRING "Raw JSON array for manifest minecraft_versions")
 set(MOD_ICON "" CACHE STRING "Optional package-relative icon path, such as icon.png")
 
-set(DEFAULT_LEVI_PRELOADER_ROOT "D:/a/liteldev/LeviLaunchroid/app/src/main/cpp/preloader")
+set(DEFAULT_LEVI_PRELOADER_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/third_party/preloader-android")
 if(NOT DEFINED LEVI_PRELOADER_ROOT AND DEFINED ENV{LEVI_PRELOADER_ROOT} AND NOT "$ENV{LEVI_PRELOADER_ROOT}" STREQUAL "")
     set(DEFAULT_LEVI_PRELOADER_ROOT "$ENV{LEVI_PRELOADER_ROOT}")
 endif()
 set(LEVI_PRELOADER_ROOT "${DEFAULT_LEVI_PRELOADER_ROOT}" CACHE PATH "Path to LeviLaunchroid preloader root")
 
 if(NOT EXISTS "${LEVI_PRELOADER_ROOT}/src/pl/cpp/Mod.hpp")
-    message(FATAL_ERROR "LEVI_PRELOADER_ROOT must point to app/src/main/cpp/preloader")
+    message(FATAL_ERROR
+        "LEVI_PRELOADER_ROOT must point to a preloader-android checkout. "
+        "Clone https://github.com/LiteLDev/preloader-android to "
+        "third_party/preloader-android or pass -DLEVI_PRELOADER_ROOT=<path>.")
 endif()
 
 include(FetchContent)

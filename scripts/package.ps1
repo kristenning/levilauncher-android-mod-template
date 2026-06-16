@@ -14,11 +14,11 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = Resolve-Path (Join-Path $scriptDir "..")
 
 if ([string]::IsNullOrWhiteSpace($PreloaderRoot)) {
-    $PreloaderRoot = "D:/a/liteldev/LeviLaunchroid/app/src/main/cpp/preloader"
+    $PreloaderRoot = Join-Path $repoRoot "third_party/preloader-android"
 }
 
 if (-not (Test-Path (Join-Path $PreloaderRoot "src/pl/cpp/Mod.hpp"))) {
-    throw "PreloaderRoot must point to app/src/main/cpp/preloader. Current value: $PreloaderRoot"
+    throw "PreloaderRoot must point to a preloader-android checkout. Clone https://github.com/LiteLDev/preloader-android to third_party/preloader-android, set LEVI_PRELOADER_ROOT, or pass -PreloaderRoot. Current value: $PreloaderRoot"
 }
 
 function Invoke-ConfigGeneration {
