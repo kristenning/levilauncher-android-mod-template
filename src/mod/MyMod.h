@@ -30,19 +30,16 @@ struct Waypoint {
 
 struct ModConfig {
     int version = 1;
-
-    bool enabled = true;            // 总开关
-    float mapSize = 160.0f;         // 小地图直径（像素）
-    float mapScale = 2.0f;          // 每个像素=多少方块
-    float mapAlpha = 0.6f;          // 背景透明度
-    bool rotateWithPlayer = true;   // 跟随玩家朝向旋转
-
-    float btnX = 0.91f;             // 按钮X（屏幕比例）
-    float btnY = 0.07f;             // 按钮Y
-    float btnSize = 42.0f;          // 按钮直径（像素）
-    float btnAlpha = 0.5f;          // 按钮透明度
-
-    std::vector<Waypoint> waypoints; // 传送点
+    bool enabled = true;
+    float mapSize = 160.0f;
+    float mapScale = 2.0f;
+    float mapAlpha = 0.6f;
+    bool rotateWithPlayer = true;
+    float btnX = 0.91f;
+    float btnY = 0.07f;
+    float btnSize = 42.0f;
+    float btnAlpha = 0.5f;
+    std::vector<Waypoint> waypoints;
 };
 
 nlohmann::json makeDefaultConfigJson();
@@ -75,16 +72,11 @@ public:
 private:
     ModConfig config;
     std::mutex mtx;
-
     Vec3 playerPos;
     float playerYaw = 0.0f;
-
-    // 运行时状态（不持久化）
     bool minimapOpen = false;
     int screenW = 1080;
     int screenH = 1920;
-
-    // Hook 句柄
     void *hookPos = nullptr;
     void *hookRender = nullptr;
     void *hookTouch = nullptr;
