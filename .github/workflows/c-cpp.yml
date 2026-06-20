@@ -1,0 +1,23 @@
+name   名字: C/C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name   名字: configure
+      run: ./configure
+    - name   名字: make
+      run: make
+    - name   名字: make check
+      run: make check
+    - name   名字: make distcheck
+      run: make distcheck
